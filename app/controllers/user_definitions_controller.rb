@@ -3,11 +3,14 @@ class DefinitionsController < ApplicationController
   before_action :correct_user, only: [:destroy]
   
   def new
-    @user_definition = current_user.user_definitions.build
+    @definition = Definition.find(params[:definition_id])
+    current_user.user_definitions.build(definition_id: @definition.id)
   end
   
   def create
+    @definition = Definition.find(params[:definition_id])
     @user_definition = current_user.user_definitions.build(user_definition_params)
+    current_user.user_definitions.build(definition_id: @definition.id)
     if @user_definition.save
       flash[:success] = '定義を登録しました！'
       redirect_to root_url
@@ -19,17 +22,17 @@ class DefinitionsController < ApplicationController
   end
   
   def edit
-    @user_definition = current_user.user_definitions.find(params[:id])
+    @user_definition = User_definition.find(params[:id])
   end
   
   def update
-    @user_definition = current_user.user_definitions.find(params[:id])
+    @user_definition = User_definition.find(params[:id])
      
     if @user_definition.update
       flash[:success] = '定義を変更しました！'
       redirect_to root_url
     else
-      @user_definitions = current_user.user_definitions.order('created_at DESC').page(params[:page])
+      @user_definitions = User_definitions.order('created_at DESC').page(params[:page])
       flash.now[:danger] = "定義の変更に失敗しました！"
       render :edit
     end
@@ -44,7 +47,7 @@ class DefinitionsController < ApplicationController
   private
 
   def user_definition_params
-    params.require(:user_definition).permit(:category_id, :custom_body)
+    params.require(:user_definition).permit(:custom_body)
   end
   
   def correct_user

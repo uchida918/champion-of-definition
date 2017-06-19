@@ -13,7 +13,6 @@ Rails.application.routes.draw do
   resources :definitions do
     resource :user_definitions, only: [:new, :create]
   end
-  #definition_idを入れる書き方#
   
   resources  :user_definitions, except: [:new, :create]
   

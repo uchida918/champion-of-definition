@@ -5,5 +5,4 @@ class UserDefinition < ApplicationRecord
     validates :user_id, presence: true
     validates :definition_id, presence: true
     validates :custom_body, presence: true, length: { maximum: 500 }
-   
 end

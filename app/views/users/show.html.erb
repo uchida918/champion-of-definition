@@ -1,6 +1,29 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<%= @user.username %>さんの定義
 
-<!--/つくる必要あり-->
-<!--一覧用のページ-->
-<!--ここがベースで色々リンクを貼る。-->
+<table border="1">
+  <tr>
+    <th>category</th>
+    <th>term</th>
+    <th>body</th>
+    <td><%#= definitions.memory %></td>
+    <td><%#= definitions.favorite %></td>
+    <td><%#= link_to user_definitions#edit%></td>
+    <td><%#= link_to user_definitions#destroy %></td>
+    <th>編集</th>
+  </tr>
+
+  <% @definitions.each do |definition| %>
+    <tr>
+      <td><%= definition.category.name %></td>
+      <td><%= definition.term %></td>
+      <td><%= definition.body %></td>
+      <td><%#= definition.memory %></td>
+      <td><%#= definition.favorite %></td>
+      <td><%#= link_to user_definitions#edit%></td>
+      <td><%#= link_to user_definitions#destroy %></td>
+      <td><%= link_to 'edit', edit_definition_path(definition) %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= link_to "定義の新規作成", new_definition_path %>

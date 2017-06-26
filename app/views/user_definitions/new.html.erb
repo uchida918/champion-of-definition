@@ -1,0 +1,20 @@
+<div class="text-center">
+  <h1>登録された定義（デフォルト定義）の編集</h1>
+</div>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    
+    <@= @definition.body %>
+
+    <%= form_for(@definition) do |f| %>
+
+      <div class="form-group">
+        <%= f.label :custom_body, '新たな定義（ユーザー定義）の内容' %>
+        <%= f.text_field :body, class: 'form-control' %>
+      </div>
+      
+      <%= f.submit 'ユーザー定義を登録する！！', class: 'btn btn-primary btn-block' %>
+    <% end %>
+  </div>
+</div>

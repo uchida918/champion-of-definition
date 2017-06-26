@@ -6,6 +6,6 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }
   has_secure_password
   
-  has_many :user_definitions, dependent: :destroy
-  has_many :definitions, through: :user_definitions, source: :definition
+  #has_many :user_definitions, dependent: :destroy
+  has_many :definitions, dependent: :destroy
 end

@@ -1,6 +1,6 @@
 class DefinitionsController < ApplicationController
-  before_action :require_user_logged_in
-  before_action :correct_user, only: [:destroy]
+  #before_action :require_user_logged_in
+  #before_action :correct_user, only: [:destroy]
   
   def new
     @definition = current_user.definitions.build
@@ -10,7 +10,7 @@ class DefinitionsController < ApplicationController
     @definition = current_user.definitions.build(definition_params)
     if @definition.save
       flash[:success] = '定義を登録しました！'
-      redirect_to root_url
+      redirect_to current_user
     else
       @definitions = current_user.definitions.order('created_at DESC').page(params[:page])
       flash.now[:danger] = "定義の登録に失敗しました！"
@@ -19,15 +19,14 @@ class DefinitionsController < ApplicationController
   end
   
   def edit
-    @definition = current_user.definitions.find(params[:id])
+    @definition = Definition.find(params[:id])
   end
   
   def update
-    @definition = current_user.definitions.find(params[:id])
-     
-    if @definition.update
+    @definition = Definition.find(params[:id])
+    if @definition.update(definition_params)
       flash[:success] = '定義を変更しました！'
-      redirect_to root_url
+      redirect_to current_user
     else
       @definitions = current_user.definitions.order('created_at DESC').page(params[:page])
       flash.now[:danger] = "定義の変更に失敗しました！"

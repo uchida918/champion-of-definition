@@ -1,0 +1,5 @@
+<% if @definition.user_definitions.any? %>
+  <%= link_to "edit", edit_user_definition_path(@definition) %>
+<% else %>
+  <%= link_to "new", new_definition_user_definitions_path(@definition) %>
+<% end %>

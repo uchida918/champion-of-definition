@@ -1,6 +1,10 @@
 class DefinitionsController < ApplicationController
-  #before_action :require_user_logged_in
-  #before_action :correct_user, only: [:destroy]
+  before_action :require_user_logged_in, only: [:show]
+  before_action :correct_user, except: [:show]
+  
+  def show
+    @definition = Definition.find(params[:id])
+  end
   
   def new
     @definition = current_user.definitions.build
@@ -47,10 +51,6 @@ class DefinitionsController < ApplicationController
   end
   
   def correct_user
-    @definition = current_user.definitions.find_by(id: params[:id])
-    unless @definition
-      redirect_to root_path
-    end
+    redirect_to(current_user || root_url) if admin?(current_user)
   end
-  
 end

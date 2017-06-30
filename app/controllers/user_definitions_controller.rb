@@ -1,11 +1,12 @@
-class DefinitionsController < ApplicationController
+class UserDefinitionsController < ApplicationController
   before_action :require_user_logged_in, only: [:new, :create]
-  before_action :set_user_definition, only: [:edit, :update, :destroy]
+  before_action :set_edit_user_definition, only: [:edit]
+  before_action :set_update_user_definition, only: [:update, :destroy]
   before_action :correct_user, only: [:edit, :update, :destroy]
   
   def new
     @definition = Definition.find(params[:definition_id])
-    current_user.user_definitions.build(definition_id: @definition.id)
+    @user_definition = current_user.user_definitions.build(definition_id: @definition.id)
   end
   
   def create
@@ -14,7 +15,7 @@ class DefinitionsController < ApplicationController
     @user_definition.definition_id = @definition.id
     if @user_definition.save
       flash[:success] = '定義を登録しました！'
-      redirect_to root_url
+      redirect_to @definition
     else
       @user_definitions = current_user.user_definitions.order('created_at DESC').page(params[:page])
       flash.now[:danger] = "定義の登録に失敗しました！"
@@ -28,7 +29,7 @@ class DefinitionsController < ApplicationController
   def update
     if @user_definition.update(user_definition_params)
       flash[:success] = '定義を変更しました！'
-      redirect_to root_url
+      redirect_to @definition
     else
       @user_definitions = User_definitions.order('created_at DESC').page(params[:page])
       flash.now[:danger] = "定義の変更に失敗しました！"
@@ -48,8 +49,14 @@ class DefinitionsController < ApplicationController
     params.require(:user_definition).permit(:custom_body)
   end
   
-  def set_user_definition
-    @user_definition = User_definitions.find(params[:id])
+  def set_edit_user_definition
+    @definition = Definition.find(params[:id])
+    @user_definition = UserDefinition.find_by(definition_id: @definition.id, user_id: current_user.id)
+  end
+
+  def set_update_user_definition
+    @user_definition = UserDefinition.find(params[:id])
+    @definition = Definition.find(@user_definition.definition_id)
   end
 
   def correct_user

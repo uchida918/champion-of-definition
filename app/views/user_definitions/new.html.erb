@@ -5,13 +5,13 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     
-    <@= @definition.body %>
+    <%= @definition.body %>
 
-    <%= form_for(@definition) do |f| %>
+    <%= form_for(@user_definition, url: definition_user_definitions_path(@definition)) do |f| %>
 
       <div class="form-group">
         <%= f.label :custom_body, '新たな定義（ユーザー定義）の内容' %>
-        <%= f.text_field :body, class: 'form-control' %>
+        <%= f.text_field :custom_body, class: 'form-control' %>
       </div>
       
       <%= f.submit 'ユーザー定義を登録する！！', class: 'btn btn-primary btn-block' %>

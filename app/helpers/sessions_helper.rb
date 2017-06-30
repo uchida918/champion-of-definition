@@ -6,4 +6,8 @@ module SessionsHelper
   def logged_in?
     !!current_user
   end
+  
+  def admin?(user)
+    (user.admin == true) ? true : false
+  end
 end

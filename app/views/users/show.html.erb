@@ -1,29 +1,30 @@
 <%= @user.username %>さんの定義
 
+<% if admin?(current_user) %>
+  <%= link_to "定義の新規作成", new_definition_path %>
+<% end %>
+
 <table border="1">
   <tr>
-    <th>category</th>
-    <th>term</th>
-    <th>body</th>
-    <td><%#= definitions.memory %></td>
-    <td><%#= definitions.favorite %></td>
-    <td><%#= link_to user_definitions#edit%></td>
-    <td><%#= link_to user_definitions#destroy %></td>
-    <th>編集</th>
+    <th>定義</th>
+    <th>内容</th>
+    <th>法律</th>
+    <th>定義を見る</th>
+    <% if admin?(current_user) %>
+      <th>定義の編集</th>
+    <% end %>
   </tr>
 
   <% @definitions.each do |definition| %>
     <tr>
-      <td><%= definition.category.name %></td>
       <td><%= definition.term %></td>
       <td><%= definition.body %></td>
-      <td><%#= definition.memory %></td>
-      <td><%#= definition.favorite %></td>
-      <td><%#= link_to user_definitions#edit%></td>
-      <td><%#= link_to user_definitions#destroy %></td>
-      <td><%= link_to 'edit', edit_definition_path(definition) %></td>
+      <td><%= definition.category.name %></td>
+      <td><%= link_to 'show', definition %></td>
+      <% if admin?(current_user) %>
+        <td><%= link_to 'edit', edit_definition_path(definition) %></td>
+      <% end %>
     </tr>
   <% end %>
 </table>
 
-<%= link_to "定義の新規作成", new_definition_path %>

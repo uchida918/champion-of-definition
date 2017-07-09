@@ -1,0 +1,30 @@
+<%= @user.username %>さんの定義（民法）
+
+<% if admin?(current_user) %>
+  <%= link_to "定義の新規作成", new_definition_path %>
+  <%= link_to "憲法", constitution_user_path %>
+  <%= link_to "民法", civil_code_user_path %>
+  <%= link_to "刑法", criminal_code_user_path %>
+<% end %>
+
+<table border="1">
+  <tr>
+    <th>定義</th>
+    <th>内容</th>
+    <th>定義を見る</th>
+    <% if admin?(current_user) %>
+      <th>定義の編集</th>
+    <% end %>
+  </tr>
+
+  <% @definitions.each do |definition| %>
+    <tr>
+      <td><%= definition.term %></td>
+      <td><%= definition.body %></td>
+      <td><%= link_to 'show', definition %></td>
+      <% if admin?(current_user) %>
+        <td><%= link_to 'edit', edit_definition_path(definition) %></td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>

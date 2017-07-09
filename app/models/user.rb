@@ -8,6 +8,5 @@ class User < ApplicationRecord
   
   has_many :user_definitions, dependent: :destroy
   has_many :definition_definitions, through: :user_definitions, source: :definition
-  #内田コメント：ここはdestroyだけでよいのでしょうか？
   has_many :definitions, dependent: :destroy
 end

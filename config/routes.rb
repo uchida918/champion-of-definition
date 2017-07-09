@@ -7,7 +7,11 @@ Rails.application.routes.draw do
   delete 'logout', to: 'sessions#destroy'
   
   get 'signup', to: 'users#new'
-  resources :users, except: [:index]
+  resources :users, except: [:index] do
+    member do
+      get :constitution, :civil_code, :criminal_code
+    end
+  end
   resources :definitions
   
   resources :definitions do

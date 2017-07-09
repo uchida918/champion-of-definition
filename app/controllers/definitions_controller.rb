@@ -1,6 +1,7 @@
 class DefinitionsController < ApplicationController
-  before_action :require_user_logged_in, only: [:show]
-  before_action :correct_user, except: [:show]
+  before_action :require_user_logged_in, only: [:new, :create]
+  before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :my_definition, only: :show
   
   def show
     @definition = Definition.find(params[:id])
@@ -51,6 +52,12 @@ class DefinitionsController < ApplicationController
   end
   
   def correct_user
-    redirect_to(current_user || root_url) if admin?(current_user)
+    @definition = Definition.find(params[:id])
+    redirect_to(current_user || root_url) if @definition.user != current_user
+  end
+  
+  def my_definition
+    @definition = Definition.find(params[:id])
+    redirect_to(current_user || root_url) if !referenceable?(@definition.user)
   end
 end

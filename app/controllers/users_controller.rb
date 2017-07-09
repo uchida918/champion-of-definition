@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :correct_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :constitution, :civil_code, :criminal_code]
+  before_action :correct_user, only: [:show, :edit, :update, :destroy, :constitution, :civil_code, :criminal_code]
 
   def show
-    @definitions = @user.definitions
+    @definitions = Definition.where(user_id: referenceable_ids)
   end
 
   def new
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
       flash[:success] = 'ユーザ情報を変更しました。'
       redirect_to login_url
     else
-      flash.now[:danger] = 'ユー情報ザの変更に失敗しました。'
+      flash.now[:danger] = 'ユーザ情報の変更に失敗しました。'
       render :edit
     end
   end
@@ -40,6 +40,27 @@ class UsersController < ApplicationController
 
     flash[:success] = 'ユーザーは正常に削除されました'
     redirect_to root_url
+  end
+  
+  def constitution
+    area = Area.find_by(name: "憲法")
+    category_ids = Category.where(area_id: area.id).pluck(:id)
+    @definitions = Definition.where(category_id: category_ids)
+    render :show
+  end
+
+  def civil_code
+    area = Area.find_by(name: "民法")
+    category_ids = Category.where(area_id: area.id).pluck(:id)
+    @definitions = Definition.where(category_id: category_ids)
+    render :show
+  end
+  
+  def criminal_code
+    area = Area.find_by(name: "刑法")
+    category_ids = Category.where(area_id: area.id).pluck(:id)
+    @definitions = Definition.where(category_id: category_ids)
+    render :show
   end
 
   private

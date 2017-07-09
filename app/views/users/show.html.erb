@@ -1,15 +1,37 @@
-<%= @user.username %>さんの定義
-
-<% if admin?(current_user) %>
-  <%= link_to "定義の新規作成", new_definition_path %>
+<h2 class="page-header"><%= @user.username %>さんの定義</h2>
+  
+<% if referenceable?(current_user) %>
+  <%= link_to "定義の新規作成（デフォルト）", new_definition_path %>
+<% else %>
+  <div>定義テストを行う</div>
+  <div>定義の新規登録</div>
+  <%#= link_to '定義の新規登録', new_definition_path %>
 <% end %>
 
-<table border="1">
+<ul class="nav nav-tabs">
+  <li class="nav-item <%== 'active' if current_page?(user_path(@user)) %>">
+    <%= link_to "すべての定義", user_path(@user), class: 'nav-link bg-primary' %>
+  </li>
+  <li class="nav-item <%== 'active' if current_page?(user_path(@user)) %>">
+    <%= link_to "憲法", constitution_user_path(@user), class: 'nav-link bg-primary' %>
+  </li>
+  <li class="nav-item <%== 'active' if current_page?(user_path(@user)) %>">
+    <%= link_to "民法", civil_code_user_path(@user), class: 'nav-link bg-primary' %>
+  </li>
+  <li class="nav-item <%== 'active' if current_page?(user_path(@user)) %>">
+    <%= link_to "刑法", criminal_code_user_path(@user), class: 'nav-link bg-primary' %>
+  </li>
+  <li class="nav-item <%== 'active' if current_page?(user_path(@user)) %>">
+    <%= link_to "個人定義帳", user_definition_path(@user), class: 'nav-link bg-primary' %>
+  </li>
+</ul>
+
+<table class="table table-striped table-hover">
   <tr>
     <th>定義</th>
     <th>内容</th>
     <th>法律</th>
-    <th>定義を見る</th>
+    <th>定義の詳細を見る</th>
     <% if admin?(current_user) %>
       <th>定義の編集</th>
     <% end %>
@@ -18,11 +40,11 @@
   <% @definitions.each do |definition| %>
     <tr>
       <td><%= definition.term %></td>
-      <td><%= definition.body %></td>
+      <td><%= current_user.user_definitions.find_by(definition_id: definition.id) ? UserDefinition.find_by(definition_id: definition.id).custom_body : definition.body %></td>
       <td><%= definition.category.name %></td>
-      <td><%= link_to 'show', definition %></td>
+      <td><%= link_to '詳細', definition %></td>
       <% if admin?(current_user) %>
-        <td><%= link_to 'edit', edit_definition_path(definition) %></td>
+        <td><%= link_to '編集', edit_definition_path(definition) %></td>
       <% end %>
     </tr>
   <% end %>

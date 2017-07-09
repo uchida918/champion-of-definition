@@ -8,12 +8,21 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/">定義の味方</a>
+        <div class="navbar-brand">
+          <% if logged_in? %>
+            <%= link_to '定義の味方', user_path(current_user) %>
+          <% else %>
+            <%= link_to '定義の味方', root_path %>
+          <% end %>
+        </div>
       </div>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <% if logged_in? %>
           <ul class="nav navbar-nav navbar-right">
-            <li><%= link_to 'ユーザーの編集', '#' %></li>
+            <% if admin?(current_user) %>
+              <li><%= link_to '新規定義登録', new_definition_path %></li>
+            <% end %>
+            <li><%= link_to 'ユーザーの編集', edit_user_path(current_user) %></li>
             <li><%= link_to 'ログアウト', logout_path, method: :delete %></li>
           </ul>
         <% else %>

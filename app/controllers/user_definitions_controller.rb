@@ -30,6 +30,8 @@ class UserDefinitionsController < ApplicationController
     if @user_definition.update(user_definition_params)
       flash[:success] = '定義を変更しました！'
       redirect_to @definition
+    elsif @user_definition.custom_body.blank?
+      #レコードの削除処理
     else
       @user_definitions = User_definitions.order('created_at DESC').page(params[:page])
       flash.now[:danger] = "定義の変更に失敗しました！"
@@ -60,7 +62,7 @@ class UserDefinitionsController < ApplicationController
   end
 
   def correct_user
-    redirect_to root_url if @user_definition.user != current_user
+    redirect_to root_url if !@user_definition && @user_definition.user != current_user
   end
 end
 

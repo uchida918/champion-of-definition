@@ -1,26 +1,6 @@
-/* cover */
-.cover {
-  margin-top: -20px;
-  margin-bottom: 20px;
-  width: 100%;
-  height: 300px;
-  background: url("/images/cover-bg.jpg") center center no-repeat;
-  background-size: cover;
+.jumbotron {
+  background: url("temis_top.jpg");
+  background-size:cover;
+  height: 600px;
 }
-.cover .cover-inner {
-  height: 100%;
-  margin: auto;
-  display: table;
-}
-.cover .cover-inner .cover-contents {
-  display: table-cell;
-  vertical-align: middle;
-  text-align: center;
-  position: relative;
-}
-.cover .cover-inner .cover-contents h1 {
-  margin: 0 0 20px 0;
-  color: #fff;
-  font-weight: bold;
-  letter-spacing: 0.15em;
-}
+

@@ -1,11 +1,5 @@
 <%= @definition.inspect %>
 
-<% if @definition.user_definitions.any? %>
-  <%= link_to "edit", edit_user_definition_path(@definition) %>
-<% else %>
-  <%= link_to "new", new_definition_user_definitions_path(@definition) %>
-<% end %>
-
 <div class="text-center">
   <h1>「<%= @definition.term %>」の詳細</h1>
 </div>
@@ -30,6 +24,17 @@
         <%= f.text_field :body, class: 'form-control' %>
       </div>
     <% end %>
-    
   </div>
+</div>
+
+<div>
+  <% if @definition.user != current_user %>
+    <% if @definition.user_definitions.any? %>
+      <%= link_to "定義の内容を編集する（デフォルト値の変更）", edit_user_definition_path(@definition) %>
+    <% else %>
+      <%= link_to "定義の内容を編集する", new_definition_user_definitions_path(@definition) %>
+    <% end %>
+  <% else %>
+      <%= link_to "定義の内容を編集する", edit_definition_path(@definition) %>
+  <% end %>
 </div>

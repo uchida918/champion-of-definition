@@ -45,7 +45,7 @@ class UsersController < ApplicationController
   def constitution
     area = Area.find_by(name: "憲法")
     category_ids = Category.where(area_id: area.id).pluck(:id)
-    @definitions = Definition.where(category_id: category_ids)
+    @definitions = Definition.where(category_id: category_ids, user_id: referenceable_ids)
     render :show
   end
 

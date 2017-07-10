@@ -62,7 +62,8 @@ class UserDefinitionsController < ApplicationController
   end
 
   def correct_user
-    redirect_to root_url if !@user_definition && @user_definition.user != current_user
+    @user_definition = UserDefinition.find(params[:id])
+    redirect_to root_url if !@user_definition.user && @user_definition.user != current_user
   end
 end
 

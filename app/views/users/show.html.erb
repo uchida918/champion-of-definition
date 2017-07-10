@@ -5,7 +5,6 @@
 <% else %>
   <div>定義テストを行う</div>
   <div>定義の新規登録</div>
-  <%#= link_to '定義の新規登録', new_definition_path %>
 <% end %>
 
 <ul class="nav nav-tabs">
@@ -44,7 +43,7 @@
       <td><%= definition.category.name %></td>
       <td><%= link_to '詳細', definition %></td>
       <% if admin?(current_user) %>
-        <td><%= link_to '編集', edit_definition_path(definition) %></td>
+        <td><%= link_to '編集', edit_user_definition_path(definition) %></td>
       <% end %>
     </tr>
   <% end %>

@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get 'signup', to: 'users#new'
   resources :users, except: [:index] do
     member do
-      get :constitution, :civil_code, :criminal_code
+      get :constitution, :civil_code, :criminal_code, :notebook
     end
   end
   resources :definitions

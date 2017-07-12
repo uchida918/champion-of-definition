@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :constitution, :civil_code, :criminal_code]
-  before_action :correct_user, only: [:show, :edit, :update, :destroy, :constitution, :civil_code, :criminal_code]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :constitution, :civil_code, :criminal_code, :notebook]
+  before_action :correct_user, only: [:show, :edit, :update, :destroy, :constitution, :civil_code, :criminal_code, :notebook]
 
   def show
     @definitions = Definition.where(user_id: referenceable_ids)
@@ -52,14 +52,19 @@ class UsersController < ApplicationController
   def civil_code
     area = Area.find_by(name: "民法")
     category_ids = Category.where(area_id: area.id).pluck(:id)
-    @definitions = Definition.where(category_id: category_ids)
+    @definitions = Definition.where(category_id: category_ids, user_id: referenceable_ids)
     render :show
   end
   
   def criminal_code
     area = Area.find_by(name: "刑法")
     category_ids = Category.where(area_id: area.id).pluck(:id)
-    @definitions = Definition.where(category_id: category_ids)
+    @definitions = Definition.where(category_id: category_ids, user_id: referenceable_ids)
+    render :show
+  end
+  
+  def notebook
+    @definitions = Definition.where(user_id: referenceable_ids, favorite: true)
     render :show
   end
 

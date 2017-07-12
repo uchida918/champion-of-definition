@@ -1,25 +1,23 @@
 class UserDefinitionsController < ApplicationController
   before_action :require_user_logged_in, only: [:new, :create]
-  before_action :set_edit_user_definition, only: [:edit]
-  before_action :set_update_user_definition, only: [:update, :destroy]
+  before_action :set_definition, only: [:new, :create]
+  before_action :set_user_definition, only: [:edit, :update, :destroy]
+  before_action :reject_admin_and_definition_user
   before_action :correct_user, only: [:edit, :update, :destroy]
   
   def new
-    @definition = Definition.find(params[:definition_id])
     @user_definition = current_user.user_definitions.build(definition_id: @definition.id)
   end
   
   def create
-    @definition = Definition.find(params[:definition_id])
     @user_definition = current_user.user_definitions.build(user_definition_params)
     @user_definition.definition_id = @definition.id
     if @user_definition.save
       flash[:success] = '定義を登録しました！'
       redirect_to @definition
     else
-      @user_definitions = current_user.user_definitions.order('created_at DESC').page(params[:page])
       flash.now[:danger] = "定義の登録に失敗しました！"
-      render 'toppages/index'
+      render 'new'
     end
   end
   
@@ -27,13 +25,15 @@ class UserDefinitionsController < ApplicationController
   end
   
   def update
+    p "*********"
+    p @user_definition.id
     if @user_definition.update(user_definition_params)
       flash[:success] = '定義を変更しました！'
       redirect_to @definition
     elsif @user_definition.custom_body.blank?
-      #レコードの削除処理
+      @user_definition.destroy
+      redirect_to @definition
     else
-      @user_definitions = User_definitions.order('created_at DESC').page(params[:page])
       flash.now[:danger] = "定義の変更に失敗しました！"
       render :edit
     end
@@ -51,19 +51,21 @@ class UserDefinitionsController < ApplicationController
     params.require(:user_definition).permit(:custom_body)
   end
   
-  def set_edit_user_definition
-    @definition = Definition.find(params[:id])
-    @user_definition = UserDefinition.find_by(definition_id: @definition.id, user_id: current_user.id)
+  def set_definition
+    @definition = Definition.find(params[:definition_id])
   end
 
-  def set_update_user_definition
+  def set_user_definition
     @user_definition = UserDefinition.find(params[:id])
     @definition = Definition.find(@user_definition.definition_id)
   end
 
   def correct_user
-    @user_definition = UserDefinition.find(params[:id])
     redirect_to root_url if !@user_definition.user && @user_definition.user != current_user
+  end
+
+  def reject_admin_and_definition_user
+    redirect_to root_url if admin?(current_user) || (!admin?(current_user) && @definition.user == current_user)
   end
 end
 

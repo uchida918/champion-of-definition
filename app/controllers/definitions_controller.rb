@@ -5,6 +5,7 @@ class DefinitionsController < ApplicationController
   
   def show
     @definition = Definition.find(params[:id])
+    @user_definition = @definition.user_definitions.find_by(user_id: current_user.id)
   end
   
   def new
@@ -42,7 +43,7 @@ class DefinitionsController < ApplicationController
   def destroy
     @definition.destroy
     flash[:success] = '定義を削除しました！'
-    redirect_back(fallback_location: root_path)
+    redirect_to current_user
   end
   
   private

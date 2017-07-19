@@ -27,12 +27,16 @@ class UserDefinitionsController < ApplicationController
   def update
     p "*********"
     p @user_definition.id
-    if @user_definition.update(user_definition_params)
-      flash[:success] = '定義を変更しました！'
-      redirect_to @definition
-    elsif @user_definition.custom_body.blank?
+    p params[:user_definition][:custom_body]
+    if @user_definition.update(user_favorite_params) && params[:user_definition][:custom_body].nil?
+      render :update
+    elsif params[:user_definition][:custom_body].blank?
       @user_definition.destroy
       redirect_to @definition
+    elsif @user_definition.update(user_definition_params)
+      flash[:success] = '定義を変更しました！'
+      redirect_to @definition
+
     else
       flash.now[:danger] = "定義の変更に失敗しました！"
       render :edit
@@ -49,6 +53,10 @@ class UserDefinitionsController < ApplicationController
 
   def user_definition_params
     params.require(:user_definition).permit(:custom_body)
+  end
+  
+  def user_favorite_params
+    params.require(:user_definition).permit(:favorite, :memory)
   end
   
   def set_definition

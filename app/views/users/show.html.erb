@@ -18,19 +18,19 @@
 
 
 <ul class="nav nav-tabs">
-  <li class="nav-item <%== 'active' if current_page?(user_path(@user)) %>">
+  <li class="nav-item <%== 'active' if params[:action] == 'show' %>">
     <%= link_to "すべての定義", user_path(@user), class: 'nav-link bg-primary' %>
   </li>
-  <li class="nav-item <%== 'active' if current_page?(user_path(@user)) %>">
+  <li class="nav-item <%== 'active' if params[:action] == 'constitution' %>">
     <%= link_to "憲法", constitution_user_path(@user), class: 'nav-link bg-primary' %>
   </li>
-  <li class="nav-item <%== 'active' if current_page?(user_path(@user)) %>">
+  <li class="nav-item <%== 'active' if params[:action] == 'civil_code' %>">
     <%= link_to "民法", civil_code_user_path(@user), class: 'nav-link bg-primary' %>
   </li>
-  <li class="nav-item <%== 'active' if current_page?(user_path(@user)) %>">
+  <li class="nav-item <%== 'active' if params[:action] == 'criminal_code' %>">
     <%= link_to "刑法", criminal_code_user_path(@user), class: 'nav-link bg-primary' %>
   </li>
-  <li class="nav-item <%== 'active' if current_page?(user_path(@user)) %>">
+  <li class="nav-item <%== 'active' if params[:action] == 'notebook' %>">
     <%= link_to "個人定義帳", notebook_user_path(@user), class: 'nav-link bg-primary' %>
   </li>
 </ul>
@@ -39,7 +39,7 @@
   <tr class="table-bordered">
     <th class="info">定義</th>
     <th class="info">内容</th>
-    <th class="info">法律</th>
+    <th class="info">分野</th>
     <th class="info">定義の詳細を見る</th>
     <% if admin?(current_user) %>
       <th class="info">定義の編集</th>
@@ -58,8 +58,9 @@
       <% if admin?(current_user) %>
         <td><%= link_to '編集', edit_user_definition_path(definition) %></td>
       <% end %>
-      <td><%= check_box_tag :favorite, true, false %></td>
-      <td><%= check_box_tag :memory, true, false %></td>
+      <% if user_definition %>
+        <%= render 'favorite_form', user_definition: user_definition %>
+      <% end %>
     </tr>
   <% end %>
 </table>

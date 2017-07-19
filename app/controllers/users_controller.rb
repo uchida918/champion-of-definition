@@ -64,7 +64,14 @@ class UsersController < ApplicationController
   end
   
   def notebook
-    @definitions = Definition.where(user_id: referenceable_ids, favorite: true)
+    definitions = Definition.where(user_id: referenceable_ids)
+    definition_ids = []
+    definitions.each do |d|
+      if d.user_definitions.find_by(user_id: current_user.id, favorite: true).present?
+        definition_ids << d.id
+      end
+    end
+    @definitions = definitions.where(id: definition_ids)
     render :show
   end
 

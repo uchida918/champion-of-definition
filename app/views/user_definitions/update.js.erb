@@ -1,0 +1,7 @@
+$('#favorite_<%= @user_definition.id %>').click(function(){
+  $('edit_user_definition_<%= @user_definition.id %>').html('<%=j render 'users/favorite_form', user_definition: @user_definition %>');
+};
+
+$('#memory_<%= @user_definition.id %>').click(function(){
+  $('edit_user_definition_<%= @user_definition.id %>').html('<%=j render 'users/favorite_form', user_definition: @user_definition %>');
+};

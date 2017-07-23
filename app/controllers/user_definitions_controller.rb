@@ -36,7 +36,6 @@ class UserDefinitionsController < ApplicationController
     elsif @user_definition.update(user_definition_params)
       flash[:success] = '定義を変更しました！'
       redirect_to @definition
-
     else
       flash.now[:danger] = "定義の変更に失敗しました！"
       render :edit

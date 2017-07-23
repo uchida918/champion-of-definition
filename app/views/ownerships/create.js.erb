@@ -1,0 +1,7 @@
+$('#favorite_<%= @definition.id %>').click(function(){
+  $('#favorite_form_<%= @definition.id %>').html('<%=j render 'ownerships/ownership_form', definition: @definition %>');
+};
+
+$('#memory_<%= @definition.id %>').click(function(){
+  $('#memory_form_<%= @definition.id %>').html('<%=j render 'ownerships/ownership_form', definition: @definition %>');
+};

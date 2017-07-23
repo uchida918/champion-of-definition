@@ -58,9 +58,7 @@
       <% if admin?(current_user) %>
         <td><%= link_to '編集', edit_user_definition_path(definition) %></td>
       <% end %>
-      <% if user_definition %>
-        <%= render 'favorite_form', user_definition: user_definition %>
-      <% end %>
+        <%= render 'ownerships/ownership_form', definition: definition %>
     </tr>
   <% end %>
 </table>

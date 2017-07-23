@@ -1,0 +1,22 @@
+<% favorite = current_user.favorites.find_or_initialize_by(definition_id: definition.id) %>
+<%= form_for(favorite, url: ownerships_path, html: { id: "favorite_form_#{definition.id}", method: :post }, remote: true) do |f| %>
+  <td><%= f.check_box :type, { id: "favorite_#{definition.id}", checked: favorite.id ? true : false }, checked_value = "favorite", unchecked_value = nil %></td>
+  <%= f.hidden_field :definition_id %>
+  <script>
+    $('#favorite_<%= definition.id %>').change(function(e){
+      $('#favorite_form_<%= definition.id %>').submit();
+    });
+  </script>
+<% end %>
+
+<% memory = current_user.memories.find_or_initialize_by(definition_id: definition.id) %>
+<%= form_for(memory, url: ownerships_path, html: { id: "memory_form_#{definition.id}" }, method: :post, remote: true) do |f| %>
+  <td><%= f.check_box :type, { id: "memory_#{definition.id}", checked: memory.id ? true : false }, checked_value = "memory", unchecked_value = nil %></td>
+  <%= f.hidden_field :definition_id %>
+  <script>
+    $('#memory_<%= definition.id %>').change(function(e){
+      $('#memory_form_<%= definition.id %>').submit();
+    });
+  </script>
+<% end %>
+

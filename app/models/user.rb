@@ -30,16 +30,16 @@ class User < ApplicationRecord
     self.favorite_definitions.include?(definition)
   end
   
-  def memory(definition)
+  def memory
      self.memories.find_or_create_by(definition_id: definition.id)
   end
   
-  def unmemory(definition)
+  def unmemory
     memory = self.memories.find_by(definition_id: definition.id)
     memory.destroy if memory
   end
   
-  def memory?(definition)
+  def memory?
     self.memory_definitions.include?(definition)
   end
 end

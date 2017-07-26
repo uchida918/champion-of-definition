@@ -25,4 +25,9 @@ Rails.application.routes.draw do
   resources  :user_definitions, except: [:new, :create]
   
   resources :ownerships, only: [:create, :destroy]
+  
+  get 'tests/start', to: 'tests#start', as: 'tests_start'
+  get 'tests/question', to: 'tests#question', as: "tests_question"
+  post 'tests/answer', to: 'tests#answer', as: 'tests_answer'
+  get 'tests/result', to: 'tests#result', as: 'tests_result'
 end

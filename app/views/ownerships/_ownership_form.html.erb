@@ -4,6 +4,8 @@
   <%= f.hidden_field :definition_id %>
   <script>
     $('#favorite_<%= definition.id %>').change(function(e){
+      console.log('favorite');
+      console.log(e);
       $('#favorite_form_<%= definition.id %>').submit();
     });
   </script>
@@ -15,6 +17,8 @@
   <%= f.hidden_field :definition_id %>
   <script>
     $('#memory_<%= definition.id %>').change(function(e){
+      console.log('memory');
+      console.log(e);
       $('#memory_form_<%= definition.id %>').submit();
     });
   </script>

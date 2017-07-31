@@ -1,7 +1,12 @@
 <h3>question</h3>
 
-<%= form_for(:test, url: tests_answer_path) do |f| %>
+<p>term : <%= @data.term %></p>
+<p>(<%= @data.body %>)</p>
 
+<%= @datas.inspect %>
+<%= form_for(:test, url: tests_answer_path) do |f| %>
+  <%= hidden_field_tag :datas, @datas %>
+  
   <%= f.text_field :answer %>
 
   <%= f.submit %>

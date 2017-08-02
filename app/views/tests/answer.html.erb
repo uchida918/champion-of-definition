@@ -1,0 +1,4 @@
+<%= form_for(:test, url: tests_question_path, html: { method: :get }) do |f| %>
+  <%= hidden_field_tag :datas, @datas %>
+  <%= f.submit "quention" %>
+<% end %>

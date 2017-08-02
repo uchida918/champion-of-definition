@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   
   get 'tests/start', to: 'tests#start', as: 'tests_start'
   get 'tests/question', to: 'tests#question', as: "tests_question"
-  post 'tests/answer', to: 'tests#answer', as: 'tests_answer'
+  post 'tests/answer', to: 'tests#post_answer'
+  get 'tests/answer', to: 'tests#get_answer'
   get 'tests/result', to: 'tests#result', as: 'tests_result'
 end

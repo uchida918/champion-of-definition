@@ -5,30 +5,48 @@ class TestsController < ApplicationController
   def start
     p "start"
     p @@test_count
-    @datas = Definition.all.sample(5)
+    p @datas = Definition.all.sample(5).pluck(:id).map(&:to_i)
     @@test_count = 0
     @@answers = []
   end
   
   def question
-    p "start"
+    if @@test_count >= 5
+      return redirect_to tests_result_url(datas: @datas)
+    end
+    p "***********"
+    if params[:datas].class == String
+      params[:datas].split(' ')
+    else
+      params[:datas].map!(&:to_i)
+    end
+    p "question"
     p @@test_count
     p @datas = params[:datas]
-    p @data = Definition.find(params[:datas][@@test_count].to_i)
+      if @@test_count == 0
+        @data = Definition.find(@datas[@@test_count])
+      else
+        @data = Definition.find(@datas.try!(:split)[@@test_count])
+      end
   end
   
-  def answer
+  def post_answer
     @@test_count += 1
-    p "start"
+    p "post_answer"
     p @@test_count
     p @datas = params[:datas].split(' ')
     p @answer = params[:test][:answer]
     p @@answers << @answer
-    if @@test_count >= 5
-      redirect_to tests_result_url(datas: @datas)
-    else
-      redirect_to tests_question_url(datas: @datas)
-    end
+    redirect_to tests_answer_path(datas: @datas)
+  end
+  
+  def get_answer
+    p @@test_count
+    p "get_answer"
+    p params
+    p @datas = params[:datas].split(' ')
+    @answer = @@answers[@@test_count - 1]
+    render :answer
   end
   
   def result

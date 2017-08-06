@@ -1,5 +1,13 @@
 <h3>result</h3>
-
-<%= @answers.inspect %>
+<ul>
+  <% @datas.each_with_index do |data, index| %>
+    <% definition = Definition.find(data) %>
+    <% user_definition = UserDefinition.find_by(definition_id: definition.id) %>
+    <% answer = user_definition.present? ? user_definition.custom_body : definition.body %>
+    <li>
+      <%= answer %>: <%= @answers[index] %> : <%= answer == @answers[index] ? "正解" : "不正解" %>
+    </li>
+  <% end %>
+</ul>
 
 <%= link_to "もう一度", tests_start_path %>

@@ -1,9 +1,8 @@
 <h3>question</h3>
 
-<p>term : <%= @data.term %></p>
-<p>(<%= @data.body %>)</p>
+<p>term : <%= @definition.term %></p>
+<p>(<%= @user_definition.present? ? @user_definition.custom_body : @definition.body %>)</p>
 
-<%= @datas.inspect %>
 <%= form_for(:test, url: tests_answer_path) do |f| %>
   <%= hidden_field_tag :datas, @datas %>
   

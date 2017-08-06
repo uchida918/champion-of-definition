@@ -1,3 +1,8 @@
+<% answer = @user_definition.present? ? @user_definition.custom_body : @definition.body %>
+<%= answer == @answer ? "正解" : "不正解" %>
+<h3><%= @answer %></h3>
+<h4><%= answer if answer != @answer %></h4>
+
 <%= form_for(:test, url: tests_question_path, html: { method: :get }) do |f| %>
   <%= hidden_field_tag :datas, @datas %>
   <%= f.submit "quention" %>

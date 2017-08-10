@@ -1,13 +1,19 @@
-<h3>question</h3>
+<h2 class="page-header">問題</h2>
 
-<p>term : <%= @definition.term %></p>
+<h3 class="well"><%= @definition.term %></h3>
 <p>(<%= @user_definition.present? ? @user_definition.custom_body : @definition.body %>)</p>
 
-<%= form_for(:test, url: tests_answer_path) do |f| %>
-  <%= hidden_field_tag :datas, @datas %>
-  
-  <%= f.text_field :answer %>
+<p>ここに回答を打ち込んでください。</p>
 
-  <%= f.submit %>
-<% end %>
+  <%= form_for(:test, url: tests_answer_path) do |f| %>
+  <%= hidden_field_tag :datas, @datas %>
+  <%= hidden_field_tag :type, params[:type] %>
+  <div class="form-group">
+    <%= f.text_field :answer, class: 'form-control input-lg'%>
+  </div>
+  <div class="form-group">
+    <%= f.submit '回答する！', class: 'btn btn-primary btn-lg' %>
+  </div>
+  <% end %>
+</div>
 

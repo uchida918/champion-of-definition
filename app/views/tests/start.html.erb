@@ -1,3 +1,13 @@
-<h3>start</h3>
+<h2 class="page-header">定義テストを行いたい分野を選んでください。</h2>
 
-<%= link_to "開始する", tests_question_path(datas: @datas) %>
+<h3>憲法</h3>
+
+<p>人権</p>
+    <%= link_to "人権", tests_question_path(datas: @datas, type: "人権"), class: 'btn btn-primary btn-lg' %>
+<p>統治</p>
+
+<h3>民法</h3>
+
+<h3>刑法</h3>
+
+<%= link_to "開始する", tests_question_path(datas: @datas), class: 'btn btn-primary btn-lg' %>

@@ -10,14 +10,17 @@ class TestsController < ApplicationController
   
   def question
     p "question"
-    if params[:type].present?
+    if params[:type].present? && params[:type] == "個人定義帳"
+      @type = params[:type]
+      @definitions = current_user.favorite_definitions
+    elsif params[:type].present?
       @type = params[:type]
       @definitions = Definition.where(category_id: Category.find_by(name: @type)) || Definition.all
-      count = @definitions.count
     else
       @definitions = Definition.all
-      count = @definitions.count
     end
+
+    count = @definitions.count
     @datas = @definitions.pluck(:id) or params[:datas]
     if @@test_count >= count
       return redirect_to tests_result_url(datas: @datas)

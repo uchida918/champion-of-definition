@@ -1,3 +1,10 @@
 // Place all the styles related to the toppages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+#toppage {
+  .jumbotron {
+    background: url("temis_top.jpg");
+    background-size:cover;
+    height: 600px;
+  }
+}

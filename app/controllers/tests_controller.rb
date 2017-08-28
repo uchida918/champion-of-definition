@@ -12,12 +12,15 @@ class TestsController < ApplicationController
     p "question"
     if params[:type].present? && params[:type] == "個人定義帳"
       @type = params[:type]
-      @definitions = current_user.favorite_definitions
+      definitions = current_user.favorite_definitions
+      definitions_without_memories(definitions)
     elsif params[:type].present?
       @type = params[:type]
-      @definitions = Definition.where(category_id: Category.find_by(name: @type)) || Definition.all
+      definitions = Definition.where(category_id: Category.find_by(name: @type)) || Definition.all
+      definitions_without_memories(definitions)
     else
-      @definitions = Definition.all
+      definitions = Definition.where(user_id: referenceable_ids)
+      definitions_without_memories(definitions)
     end
 
     count = @definitions.count
@@ -62,5 +65,14 @@ class TestsController < ApplicationController
   def result
     p @answers = @@answers
     p @datas = params[:datas].map!(&:to_i)
+  end
+  
+  private
+  
+  def definitions_without_memories(definitions)
+    definition_keys = definitions.pluck(:id)  
+    memory_keys = Memory.where(definition_id: definition_keys).pluck(:definition_id)
+    definition_keys.delete_if {|id| memory_keys.include?(id)}
+    @definitions = Definition.where(id: definition_keys)
   end
 end

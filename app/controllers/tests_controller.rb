@@ -24,6 +24,10 @@ class TestsController < ApplicationController
     end
 
     count = @definitions.count
+    if count == 0
+      flash[:success] = "該当する問題がありませんでした。"
+      return redirect_to tests_start_url
+    end
     @datas = @definitions.pluck(:id) or params[:datas]
     if @@test_count >= count
       return redirect_to tests_result_url(datas: @datas)

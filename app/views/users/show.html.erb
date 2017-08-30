@@ -63,3 +63,8 @@
   <% end %>
 </table>
 
+<%= form_tag import_definitions_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "インポート" %>
+<% end %>
+

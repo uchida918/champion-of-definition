@@ -16,10 +16,12 @@ Rails.application.routes.draw do
       get :constitution, :civil_code, :criminal_code, :notebook
     end
   end
-  resources :definitions
-  
+
   resources :definitions do
     resource :user_definitions, only: [:new, :create]
+    collection do
+      post :import
+    end
   end
   
   resources  :user_definitions, except: [:new, :create]

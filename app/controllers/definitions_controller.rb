@@ -46,6 +46,13 @@ class DefinitionsController < ApplicationController
     redirect_to current_user
   end
   
+  def import
+    # fileはtmpに自動で一時保存される
+    Definition.import(params[:file])
+    flash[:success] = "定義をインポートしました！"
+    redirect_to current_user
+  end
+  
   private
 
   def definition_params

@@ -1,13 +1,28 @@
 <h2 class="page-header">定義テストの結果</h2>
-<ul>
+<table class="table table-striped table-bordered">
+  <tr>
+    <th>定義</th>
+    <th>正しい内容</th>
+    <th>回答内容</th>
+    <th>正誤</th>
+    <th>個人定義帳へ登録</th>
+    <th>暗記済み</th>
+  </tr>
+
+    <!--<td>ここに定義を入れたい<#% @datas %></td>-->
   <% @datas.each_with_index do |data, index| %>
     <% definition = Definition.find(data) %>
     <% user_definition = UserDefinition.find_by(definition_id: definition.id) %>
     <% answer = user_definition.present? ? user_definition.custom_body : definition.body %>
-    <li>
-      <%= answer %>: <%= @answers[index] %> : <%= answer == @answers[index] ? "正解" : "不正解" %>
-    </li>
+    <tr>
+      <td><%= definition.term %></td>
+      <td><%= answer %></td>
+      <td><%= @answers[index] %></td>
+      <td><%= answer == @answers[index] ? "○" : "×" %></td>
+      <%= render 'ownerships/ownership_form', definition: definition %>
+    </tr>
   <% end %>
-</ul>
+
+</table>
 
 <%= link_to "もう一度", tests_start_path %>

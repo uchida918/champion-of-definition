@@ -15,4 +15,11 @@ class OwnershipsController < ApplicationController
       current_user.unmemory(@definition)
     end
   end
+  
+  def destroy
+    if params[:type] == "memory"
+      current_user.memories.destroy_all
+    end
+    redirect_back(fallback_location: root_url)
+  end
 end

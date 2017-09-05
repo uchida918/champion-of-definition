@@ -1,21 +1,28 @@
-<h2 class="page-header">回答</h2>
-
-<% answer = @user_definition.present? ? @user_definition.custom_body : @definition.body %>
-<%= answer == @answer ? "正解" : "不正解" %>
-
-<h3>正しい回答</h3>
-<% if answer != @answer %>
-  <h3 class="well"><%= answer %></h3>
-  <h3><%= current_user.username %>さんの回答</h3>
-<% end %>
-<h3 class="well"><%= @answer %></h3>
-
-
-
-<%= form_for(:test, url: tests_question_path, html: { method: :get }) do |f| %>
-  <%= hidden_field_tag :datas, @datas %>
-  <% if params[:type] %>
-    <%= hidden_field_tag :type, params[:type] %>
+<div id="tests">
+  <div class="answer-img">
+    <% answer = @user_definition.present? ? @user_definition.custom_body : @definition.body %>
+    <% if answer == @answer %>
+      <%= image_tag('greatjob.jpg') %>
+    <% else %>
+      <%= image_tag('incorrect.jpg') %>
+    <% end %>
+  </div>
+  
+  <% if answer != @answer %>
+  <h3>正しい回答</h3>
+    <h3 class="well"><%= answer %></h3>
+    <h3><%= current_user.username %>さんの回答</h3>
+    <h3 class="well"><%= @answer %></h3>
   <% end %>
-  <%= f.submit "次の問題へ", class: 'btn btn-primary btn-lg' %>
-<% end %>
+  
+  
+  <%= form_for(:test, url: tests_question_path, html: { method: :get }) do |f| %>
+    <%= hidden_field_tag :datas, @datas %>
+    <% if params[:type] %>
+      <%= hidden_field_tag :type, params[:type] %>
+    <% end %>
+    <div class="text-center">
+      <%= f.submit "次の問題へ", class: 'btn btn-primary btn-lg' %>
+    </div>
+  <% end %>
+</div>

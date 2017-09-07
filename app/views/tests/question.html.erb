@@ -6,8 +6,10 @@
 <p>ここに回答を打ち込んでください。</p>
 
   <%= form_for(:test, url: tests_answer_path) do |f| %>
-  <%= hidden_field_tag :datas, @datas %>
-  <%= hidden_field_tag :type, params[:type] %>
+    <%= hidden_field_tag :type, params[:type] %>
+    <%= hidden_field_tag :datas, @datas %>
+    <%= hidden_field_tag :total_count, @total_count %>
+    <%= hidden_field_tag :answers, @answers %>
   <div class="form-group">
     <%= f.text_field :answer, class: 'form-control input-lg'%>
   </div>

@@ -9,7 +9,6 @@
     <th>暗記済み</th>
   </tr>
 
-    <!--<td>ここに定義を入れたい<#% @datas %></td>-->
   <% @datas.each_with_index do |data, index| %>
     <% definition = Definition.find(data) %>
     <% user_definition = UserDefinition.find_by(definition_id: definition.id) %>

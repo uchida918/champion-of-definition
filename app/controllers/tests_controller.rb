@@ -1,15 +1,20 @@
 class TestsController < ApplicationController
-  @@test_count = 0
-  @@answers = []
 
   def start
     p "start"
-    @@test_count = 0
-    @@answers = []
+    @total_count = 0
+    @datas = []
   end
   
   def question
     p "question"
+    p @total_count = params[:total_count].try(:to_i) || 0
+    p @datas = params[:datas] || []
+    p @answers = params[:answers] || []
+    if @answers.class == String
+      @answers.split(',')
+    end
+    p @answers
     if params[:type].present? && params[:type] == "個人定義帳"
       @type = params[:type]
       definitions = current_user.favorite_definitions
@@ -23,31 +28,44 @@ class TestsController < ApplicationController
       definitions_without_memories(definitions)
     end
 
-    count = @definitions.count
+    p count = definitions.count
     if count == 0
       flash[:success] = "該当する問題がありませんでした。"
       return redirect_to tests_start_url
     end
-    @datas = @definitions.pluck(:id) or params[:datas]
-    if @@test_count >= count
-      return redirect_to tests_result_url(datas: @datas)
+    @datas = definitions.pluck(:id) || params[:datas]
+    if @total_count >= count
+      return redirect_to tests_result_url(datas: @datas, answers: @answers)
     end
 
-    @definition = Definition.find(@datas[@@test_count])
-    @user_definition = UserDefinition.find_by(definition_id: @datas[@@test_count])
+    @definition = Definition.find(@datas[@total_count])
+    @user_definition = UserDefinition.find_by(definition_id: @definition.id)
   end
   
   def post_answer
     p "post_answer"
-    @@test_count += 1
+    p @total_count = params[:total_count].try(:to_i) || 0
+    p @datas = params[:datas] || []
+    p @answers = params[:answers] || []
+    @answer.try(:split)
+    if @answers.class == String
+      answer = @answers
+      @answers = []
+      @answers << answer
+      @answers.pop if @total_count == 0
+    end
+    @total_count += 1
     @datas = params[:datas]
     @answer = params[:test][:answer]
-    @@answers << @answer
-    redirect_to tests_answer_path(datas: @datas, type: params[:type])
+    @answers << @answer
+    redirect_to tests_answer_path(datas: @datas, type: params[:type], total_count: @total_count, answers: @answers)
   end
-  
+
   def get_answer
     p "get_answer"
+    p @total_count = params[:total_count].try(:to_i) || 0
+    p @datas = params[:datas] || []
+    p @answers = params[:answers] || []
     @type = params[:type]
     if params[:datas].class == String
       @datas = params[:datas].split(' ')
@@ -55,19 +73,19 @@ class TestsController < ApplicationController
       @datas = params[:datas]
     end
 
-    if @@test_count == 1
+    if @total_count == 1
       @definition =  Definition.find(@datas[0])
     else
-      @definition =  Definition.find(@datas[@@test_count - 1])
+      @definition =  Definition.find(@datas[@total_count - 1])
     end
     
-    @user_definition = UserDefinition.find_by(definition_id: @datas[@@test_count - 1])
-    @answer = @@answers[@@test_count - 1]
+    @user_definition = UserDefinition.find_by(definition_id: @datas[@total_count - 1])
+    @answer = @answers[@total_count - 1]
     render :answer
   end
   
   def result
-    p @answers = @@answers
+    p @answers = params[:answers].split(' ')
     p @datas = params[:datas].map!(&:to_i)
   end
   

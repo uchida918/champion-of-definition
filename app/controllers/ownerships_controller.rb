@@ -19,6 +19,8 @@ class OwnershipsController < ApplicationController
   def destroy
     if params[:type] == "memory"
       current_user.memories.destroy_all
+    elsif params[:type] == "favorite"
+      current_user.favorites.destroy_all
     end
     redirect_back(fallback_location: root_url)
   end

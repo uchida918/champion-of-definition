@@ -5,16 +5,17 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-
-User.create!(username: "admin", email: "admin@test.com", password: "password", admin: true)
-puts ". -> admin_user_complete"
-29.times do |n|
-  User.create!(username: Faker::Name.name,
-               email: "test#{n}@test.com",
-               password: "password")
-  print "."
+if Rails.env == 'development'
+  User.create!(username: "admin", email: "admin@test.com", password: "password", admin: true)
+  puts ". -> admin_user_complete"
+  29.times do |n|
+    User.create!(username: Faker::Name.name,
+                 email: "test#{n}@test.com",
+                 password: "password")
+    print "."
+  end
+  puts " -> test_user_complete"
 end
-puts " -> test_user_complete"
 
 areas = ['憲法', '民法', '刑法', '商法', '民訴法', '刑訴法', '行政法']
 areas.each do |area|
@@ -23,10 +24,6 @@ areas.each do |area|
 end
 puts " -> areas_complete"
 
-# areas = ['憲法']
-# areas.each do |area|
-#   Area.create!(name: area)
-# end
 
 Category.create!(name: "人権", area_id: 1)
 Category.create!(name: "統治", area_id: 1)
@@ -36,7 +33,14 @@ Category.create!(name: "担保物権", area_id: 2)
 Category.create!(name: "債権総論", area_id: 2)
 Category.create!(name: "債権各論", area_id: 2)
 Category.create!(name: "親族・相続", area_id: 2)
-Category.create!(name: "刑法総論", area_id: 3)
+Category.create!(name: "刑法総論（実行行為）", area_id: 3)
+Category.create!(name: "刑法総論（因果関係）", area_id: 3)
+Category.create!(name: "刑法総論（故意）", area_id: 3)
+Category.create!(name: "刑法総論（違法性）", area_id: 3)
+Category.create!(name: "刑法総論（責任）", area_id: 3)
+Category.create!(name: "刑法総論（過失犯）", area_id: 3)
+Category.create!(name: "刑法総論（未遂犯・不能犯・予備）", area_id: 3)
+Category.create!(name: "刑法総論（共犯）", area_id: 3)
 Category.create!(name: "刑法各論（生命・身体に対する罪）", area_id: 3)
 Category.create!(name: "刑法各論（自由に対する罪）", area_id: 3)
 Category.create!(name: "刑法各論（秘密・名誉に対する罪）", area_id: 3)

@@ -1,31 +1,33 @@
-<div class="text-center">
-  <h1 class="page-header">「<%= @definition.term %>」の詳細</h1>
-</div>
-
-<div class="container">
-  <div class="row">
-    <h3 class="col-md-2 well text-center text-danger">分野</h3>
-    <h3 class="col-md-10"></h3>
+<div id="definitions">
+  <div class="text-center">
+    <h1 class="page-header">「<%= @definition.term %>」の詳細</h1>
   </div>
-  <div class="row">
-    <h3 class="col-md-2 well text-center text-danger">定義</h3>
-    <h3 class="col-md-10"><%= @definition.term %></h3>
+  
+  <div class="container">
+    <div class="row">
+      <h3 class="col-md-2 well text-center text-danger">分野</h3>
+      <h3 class="col-md-10 content-center"><%= @definition.category.name %></h3>
+    </div>
+    <div class="row">
+      <h3 class="col-md-2 well text-center text-danger">定義</h3>
+      <h3 class="col-md-10 content-center"><%= @definition.term %></h3>
+    </div>
+    <div class="row">
+      <h3 class="col-md-2 well text-center text-danger">内容</h3>
+      <h3 class="col-md-10 content-center"><%= @user_definition ? @user_definition.custom_body : @definition.body %></h3>
+    </div>
   </div>
-  <div class="row">
-    <h3 class="col-md-2 well text-center text-danger">内容</h3>
-    <h3 class="col-md-10"><%= @user_definition ? @user_definition.custom_body : @definition.body %></h3>
-  </div>
-</div>
-
-<div class="text-center">
-  <% if @definition.user != current_user %>
-    <% if @user_definition %>
-      <%= link_to "変更したデフォルト定義の内容をさらに変更する", edit_user_definition_path(@user_definition) %>
+  
+  <div class="text-center">
+    <% if @definition.user != current_user %>
+      <% if @user_definition %>
+        <%= link_to "変更したデフォルト定義の内容をさらに変更する", edit_user_definition_path(@user_definition) %>
+      <% else %>
+        <%= link_to "デフォルト定義を変更する", new_definition_user_definitions_path(@definition) %>
+      <% end %>
     <% else %>
-      <%= link_to "デフォルト定義を変更する", new_definition_user_definitions_path(@definition) %>
+        <div><%= link_to "ユーザーが登録した定義の内容を変更する", edit_definition_path(@definition) %></div>
+        <div><%= link_to "ユーザーが登録した定義を削除する", definition_path(@definition), method: :delete %></div>
     <% end %>
-  <% else %>
-      <div><%= link_to "ユーザーが登録した定義の内容を変更する", edit_definition_path(@definition) %></div>
-      <div><%= link_to "ユーザーが登録した定義を削除する", definition_path(@definition), method: :delete %></div>
-  <% end %>
+  </div>
 </div>

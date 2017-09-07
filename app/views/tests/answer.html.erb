@@ -18,6 +18,9 @@
   
   <%= form_for(:test, url: tests_question_path, html: { method: :get }) do |f| %>
     <%= hidden_field_tag :datas, @datas %>
+    <%= hidden_field_tag :total_count, @total_count %>
+    <%= hidden_field_tag :answers, @answers %>
+    
     <% if params[:type] %>
       <%= hidden_field_tag :type, params[:type] %>
     <% end %>

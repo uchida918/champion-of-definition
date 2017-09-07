@@ -3,35 +3,45 @@
     
     <div>
         <h3>憲法</h3>
-            <%= link_to "人権", tests_question_path(type: "人権"), class: 'btn btn-primary btn-lg' %>
-            <%= link_to "統治", tests_question_path(type: "統治"), class: 'btn btn-primary btn-lg' %>
+            <%= link_to "人権", tests_question_path(type: "人権", total_count: @total_count, datas: @datas), class: 'btn btn-primary btn-lg' %>
+            <%= link_to "統治", tests_question_path(type: "統治", total_count: @total_count, datas: @datas), class: 'btn btn-primary btn-lg' %>
     
         <h3>民法</h3>
-            <%= link_to "民法総則", tests_question_path(type: "民法総則"), class: 'btn btn-primary btn-lg' %>
-            <%= link_to "物権", tests_question_path(type: "物権"), class: 'btn btn-primary btn-lg' %>
-            <%= link_to "担保物権", tests_question_path(type: "担保物権"), class: 'btn btn-primary btn-lg' %>
-            <%= link_to "債権総論", tests_question_path(type: "債権総論"), class: 'btn btn-primary btn-lg' %>
-            <%= link_to "債権各論", tests_question_path(type: "債権各論"), class: 'btn btn-primary btn-lg' %>
-            <%= link_to "親族・相続", tests_question_path(type: "親族・相続"), class: 'btn btn-primary btn-lg' %>
+            <%= link_to "民法総則", tests_question_path(type: "民法総則", total_count: @total_count, datas: @datas), class: 'btn btn-primary btn-lg' %>
+            <%= link_to "物権", tests_question_path(type: "物権", total_count: @total_count, datas: @datas), class: 'btn btn-primary btn-lg' %>
+            <%= link_to "担保物権", tests_question_path(type: "担保物権", total_count: @total_count, datas: @datas), class: 'btn btn-primary btn-lg' %>
+            <%= link_to "債権総論", tests_question_path(type: "債権総論", total_count: @total_count, datas: @datas), class: 'btn btn-primary btn-lg' %>
+            <%= link_to "債権各論", tests_question_path(type: "債権各論", total_count: @total_count, datas: @datas), class: 'btn btn-primary btn-lg' %>
+            <%= link_to "親族・相続", tests_question_path(type: "親族・相続", total_count: @total_count, datas: @datas), class: 'btn btn-primary btn-lg' %>
     
         <h3>刑法</h3>
-            <%= link_to "刑法総論", tests_question_path(type: "刑法総論"), class: 'btn btn-primary btn-lg' %>
-            <%= link_to "刑法各論（生命・身体に対する罪）", tests_question_path(type: "刑法各論（生命・身体に対する罪）"), class: 'btn btn-primary btn-lg' %>
-            <%= link_to "刑法各論（自由に対する罪）", tests_question_path(type: "刑法各論（自由に対する罪）"), class: 'btn btn-primary btn-lg' %>
-            <%= link_to "刑法各論（秘密・名誉に対する罪）", tests_question_path(type: "刑法各論（秘密・名誉に対する罪）"), class: 'btn btn-primary btn-lg' %>
-            <%= link_to "刑法各論（財産に対する罪）", tests_question_path(type: "刑法各論（財産に対する罪）"), class: 'btn btn-primary btn-lg' %>
-            <%= link_to "刑法各論（放火罪・失火罪）", tests_question_path(type: "刑法各論（放火罪・失火罪）"), class: 'btn btn-primary btn-lg' %>
-            <%= link_to "刑法各論（文書偽造の罪）", tests_question_path(type: "刑法各論（文書偽造の罪）"), class: 'btn btn-primary btn-lg' %>
-            <%= link_to "刑法各論（風俗に対する罪）", tests_question_path(type: "刑法各論（風俗に対する罪）"), class: 'btn btn-primary btn-lg' %>
-            <%= link_to "刑法各論（国家の作用に対する罪）", tests_question_path(type: "刑法各論（国家の作用に対する罪）"), class: 'btn btn-primary btn-lg' %>
+            <%= link_to "刑法総論", tests_question_path(type: "刑法総論", total_count: @total_count, datas: @datas), class: 'btn btn-primary btn-lg' %>
+            <%= link_to "刑法各論（生命・身体に対する罪）", tests_question_path(type: "刑法各論（生命・身体に対する罪）", total_count: @total_count, datas: @datas), class: 'btn btn-primary btn-lg' %>
+            <%= link_to "刑法各論（自由に対する罪）", tests_question_path(type: "刑法各論（自由に対する罪）", total_count: @total_count, datas: @datas), class: 'btn btn-primary btn-lg' %>
+            <%= link_to "刑法各論（秘密・名誉に対する罪）", tests_question_path(type: "刑法各論（秘密・名誉に対する罪）", total_count: @total_count, datas: @datas), class: 'btn btn-primary btn-lg' %>
+            <%= link_to "刑法各論（財産に対する罪）", tests_question_path(type: "刑法各論（財産に対する罪）", total_count: @total_count, datas: @datas), class: 'btn btn-primary btn-lg' %>
+            <%= link_to "刑法各論（放火罪・失火罪）", tests_question_path(type: "刑法各論（放火罪・失火罪）", total_count: @total_count, datas: @datas), class: 'btn btn-primary btn-lg' %>
+            <%= link_to "刑法各論（文書偽造の罪）", tests_question_path(type: "刑法各論（文書偽造の罪）", total_count: @total_count, datas: @datas), class: 'btn btn-primary btn-lg' %>
+            <%= link_to "刑法各論（風俗に対する罪）", tests_question_path(type: "刑法各論（風俗に対する罪）", total_count: @total_count, datas: @datas), class: 'btn btn-primary btn-lg' %>
+            <%= link_to "刑法各論（国家の作用に対する罪）", tests_question_path(type: "刑法各論（国家の作用に対する罪）", total_count: @total_count, datas: @datas), class: 'btn btn-primary btn-lg' %>
+            
+        <h3>民訴法</h3>
+            <%= link_to "当事者", tests_question_path(type: "当事者", total_count: @total_count, datas: @datas), class: 'btn btn-primary btn-lg' %>
+            <%= link_to "訴えの変更", tests_question_path(type: "訴えの変更", total_count: @total_count, datas: @datas), class: 'btn btn-primary btn-lg' %>
+            <%= link_to "訴訟の審理と進行", tests_question_path(type: "訴訟の審理と進行", total_count: @total_count, datas: @datas), class: 'btn btn-primary btn-lg' %>
+            <%= link_to "証拠", tests_question_path(type: "証拠", total_count: @total_count, datas: @datas), class: 'btn btn-primary btn-lg' %>
+            <%= link_to "裁判によらない訴訟の完結", tests_question_path(type: "訴訟によらない訴訟の完結", total_count: @total_count, datas: @datas), class: 'btn btn-primary btn-lg' %>
+            <%= link_to "終局判決", tests_question_path(type: "終局判決", total_count: @total_count, datas: @datas), class: 'btn btn-primary btn-lg' %>
+            <%= link_to "多数当事者訴訟", tests_question_path(type: "多数当事者訴訟", total_count: @total_count, datas: @datas), class: 'btn btn-primary btn-lg' %>
+            <%= link_to "上訴・再審訴訟手続", tests_question_path(type: "上訴・再審訴訟手続", total_count: @total_count, datas: @datas), class: 'btn btn-primary btn-lg' %>
     
     <h3>個人定義帳</h3>
-        <%= link_to "個人定義帳", tests_question_path(type: "個人定義帳"), class: 'btn btn-primary btn-lg' %>
+        <%= link_to "個人定義帳", tests_question_path(type: "個人定義帳", total_count: @total_count, datas: @datas), class: 'btn btn-primary btn-lg' %>
     </div>
     
         
     <h3>すべての定義</h3>
     <div>
-        <%= link_to "開始する", tests_question_path, class: 'btn btn-primary btn-lg' %>
+        <%= link_to "開始する", tests_question_path(total_count: @total_count, datas: @datas), class: 'btn btn-primary btn-lg' %>
     </div>
 </div>

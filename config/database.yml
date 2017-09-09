@@ -49,6 +49,9 @@ test:
 #
 production:
   <<: *default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
   database: champion-of-definition_production
   username: champion-of-definition
   password: <%= ENV['CHAMPION-OF-DEFINITION_DATABASE_PASSWORD'] %>

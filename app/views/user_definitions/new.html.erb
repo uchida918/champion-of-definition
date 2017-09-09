@@ -1,11 +1,10 @@
-<div class="text-center">
-  <h1>登録された定義（デフォルト定義）の編集</h1>
-</div>
+<h2 class="page-header text-center">登録された定義（デフォルト定義）の編集</h2>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     
-    <%= @definition.body %>
+    <h3>＜デフォルトの定義（現在の定義）＞</h3>
+    <h3  class="well">「<%= @definition.body %>」</h3>
 
     <%= form_for(@user_definition, url: definition_user_definitions_path(@definition)) do |f| %>
 

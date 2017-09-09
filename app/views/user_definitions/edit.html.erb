@@ -1,11 +1,9 @@
-<div class="text-center">
-  <h1>ユーザー定義の編集</h1>
-</div>
+<h2 class="page-header text-center">ユーザー定義の編集</h2>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    
-    <h2>「<%= @definition.body %>」</h2>
+    <h2>＜デフォルトの定義（変更前の定義）＞</h2>
+    <h2  class="well">「<%= @definition.body %>」</h2>
 
     <%= form_for(@user_definition) do |f| %>
 

@@ -18,22 +18,22 @@ class TestsController < ApplicationController
     if params[:type].present? && params[:type] == "個人定義帳"
       @type = params[:type]
       definitions = current_user.favorite_definitions
-      definitions_without_memories(definitions)
+      @definitions = definitions_without_memories(definitions)
     elsif params[:type].present?
       @type = params[:type]
       definitions = Definition.where(category_id: Category.find_by(name: @type)) || Definition.all
-      definitions_without_memories(definitions)
+      @definitions = definitions_without_memories(definitions)
     else
       definitions = Definition.where(user_id: referenceable_ids)
-      definitions_without_memories(definitions)
+      @definitions = definitions_without_memories(definitions)
     end
 
-    p count = definitions.count
+    p count = @definitions.count
     if count == 0
       flash[:success] = "該当する問題がありませんでした。"
       return redirect_to tests_start_url
     end
-    @datas = definitions.pluck(:id) || params[:datas]
+    @datas = @definitions.pluck(:id) || params[:datas]
     if @total_count >= count
       return redirect_to tests_result_url(datas: @datas, answers: @answers)
     end

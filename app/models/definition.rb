@@ -10,7 +10,7 @@ class Definition < ApplicationRecord
   validates :user_id, presence: true
   validates :category_id, presence: true
   
-  has_many :ownerships
+  has_many :ownerships, dependent: :destroy
   has_many :ownership_users, through: :ownerships, source: :user
 
   has_many :favorites

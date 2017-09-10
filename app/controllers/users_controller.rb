@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :correct_user, only: [:show, :edit, :update, :destroy, :constitution, :civil_code, :criminal_code, :civil_procedure_law, :notebook]
 
   def show
-    @definitions = Definition.where(user_id: referenceable_ids)
+    @definitions = Definition.where(user_id: referenceable_ids).order(category_id: :asc)
   end
 
   def new
@@ -45,33 +45,33 @@ class UsersController < ApplicationController
   def constitution
     area = Area.find_by(name: "憲法")
     category_ids = Category.where(area_id: area.id).pluck(:id)
-    @definitions = Definition.where(category_id: category_ids, user_id: referenceable_ids)
+    @definitions = Definition.where(category_id: category_ids, user_id: referenceable_ids).order(category_id: :asc)
     render :show
   end
 
   def civil_code
     area = Area.find_by(name: "民法")
     category_ids = Category.where(area_id: area.id).pluck(:id)
-    @definitions = Definition.where(category_id: category_ids, user_id: referenceable_ids)
+    @definitions = Definition.where(category_id: category_ids, user_id: referenceable_ids).order(category_id: :asc)
     render :show
   end
   
   def criminal_code
     area = Area.find_by(name: "刑法")
     category_ids = Category.where(area_id: area.id).pluck(:id)
-    @definitions = Definition.where(category_id: category_ids, user_id: referenceable_ids)
+    @definitions = Definition.where(category_id: category_ids, user_id: referenceable_ids).order(category_id: :asc)
     render :show
   end
   
   def civil_procedure_law
     area = Area.find_by(name: "民訴法")
     category_ids = Category.where(area_id: area.id).pluck(:id)
-    @definitions = Definition.where(category_id: category_ids, user_id: referenceable_ids)
+    @definitions = Definition.where(category_id: category_ids, user_id: referenceable_ids).order(category_id: :asc)
     render :show
   end
   
   def notebook
-    @definitions = @user.favorite_definitions
+    @definitions = @user.favorite_definitions.order(category_id: :asc)
     render :show
   end
 

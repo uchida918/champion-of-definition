@@ -1,7 +1,6 @@
 <h2 class="page-header">問題</h2>
 
 <h3 class="well"><%= @definition.term %></h3>
-<p>(<%= @user_definition.present? ? @user_definition.custom_body : @definition.body %>)</p>
 
 <p>ここに回答を打ち込んでください。</p>
 
@@ -19,3 +18,6 @@
   <% end %>
 </div>
 
+<% if Rails.env.development? %>
+  <p>正しい答え：(<%= @user_definition.present? ? @user_definition.custom_body : @definition.body %>)</p>
+<% end %>
